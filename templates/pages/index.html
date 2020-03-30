@@ -1,0 +1,167 @@
+{%  extends 'base.html' %} 
+
+{% load static %}
+
+{% block content %} 
+
+<!-- About -->
+<div id="about" class="section">
+    {% if abouts %}
+        {% for about in abouts %}
+    <h1 class="aboutme">About me</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img class="aboutImage" src="{{ about.photo_main.url}}">
+            </div>
+            <div class="col-md-7">
+                <h4>My name is {{ about.name }}</h4>
+                <p>{{ about.description }}</p>
+             {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End About -->
+
+<!-- Skills -->
+<div id="skills" class="skillsSection section">
+    <h1 class="skillsme">Skills</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>PROGRAMMING SKILLS</h2>
+                <p>My proficiency in each skill.</p>
+            </div>
+            <div class="col-md-6">
+            {% if skills %}
+                {% for skill in skills %}
+                <div class="about-content">{{ skill.description }}</div><br>
+                {% endfor %}
+            {% endif %}
+            </div>
+            <div class="col-md-6 skills-bar">
+            {% if skills %}
+                {% for skill in skills %}
+                    <p>{{ skill.language }}</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{ skill.pourcentage }}%;">{{ skill.pourcentage }}%</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No Programming Languages Available</p>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Skills -->
+
+<!-- Stats -->
+<div id="stats" class="statsSection section">
+    <h1 class="aboutme">Stats</h1>
+    <div class="container">
+        <div class="row">	
+        {% if stats %}
+            {% for stat in stats %}			
+            <div class="col-md-3 col-sm-6">
+                <div class="squareItem">
+                    <div class="squareInnerContainer">
+                        <div class="squareIcon">
+                            <i class="fa fa-clock"></i>
+                        </div>
+                        <div class="squareContent">
+                            <h2 class="counter">{{ stat.how_many }}</h2>
+                            <h3>{{ stat.title }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+<!-- End Stats -->
+
+<!-- Projects-->
+<div id="portfolio" class=" projectSection section">
+    <h1 class="skillsme">Projects</h1>
+    <div class="container">
+        <div class="row">
+            <div class="heading">
+                <h2>PROJECTS</h2>
+            </div>
+            <div class="filter">
+                <ul id="filters">
+                    <li><a href="#" data-filter="*" class="current">ALL</a></li>
+                    <li><a href="#" data-filter=".websites">Websites</a></li>
+                    <li><a href="#" data-filter=".apps">Apps</a></li>
+                </ul>
+            </div>
+            <div class="itemsContainer">
+                <ul class="items">
+                {% if projects %}
+                    {% for project in projects %}
+                    <li class="{{ project.types }} col-xs-6 col-sm-4 col-md-3 col-lg-3">	
+                        <div class="item">
+                          <p class="text-center">{{ project.title }}</p>
+                            <img src="{{ project.photo_main.url }}">
+                            <div class="icons">
+                                <a href="{{ project.photo_main.url }}" title="View image" class="openButton" data-fancybox data-caption="{{ project.title }}">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a href="{{ project.link }}" target="_blank" class="projectLink">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                            </div> 
+                        </div>
+                    </li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Projects -->
+
+<!-- Contact -->
+<div id="contact" class="contactSection section">
+    <h1 class="aboutme">Contact</h1>
+    <div class="col-md-12 text-center">
+        <p class="subHeading">Like what you see?</p>
+        <h2>Contact me!</h2>
+        <!-- Alerts -->
+        {% include 'partials/_alerts.html'%} 
+        <div class="contact-title">	
+        </div>
+        <div class="contact-form">
+            <form id="Contact-form" method="POST" action="{% url 'contact' %}">
+              {% csrf_token %}
+                <input name="name" type="text" class="form-control" placeholder="Enter your name." required>
+                <br>
+                <input name="email" type="email" class="form-control" placeholder="Enter your address email." required>
+                <br>
+                <textarea name="message" type="text" class="form-control" placeholder="Message" rows="4" required></textarea>
+                <br>
+                <input type="submit" class="form-control submit" value="SEND MESSAGE">
+            </form>
+        </div>
+    </div>
+    <div class="s-m">
+        <a class="fab fa-linkedin" href="https://www.linkedin.com/in/michel-jean-9404b5181"></a>
+        <a class="fab fa-github" href="https://github.com/michel92390"></a>
+        <a class="fab fa-facebook" href="https://www.facebook.com/profile.php?id=100040053714194"></a>
+    </div>
+</div>
+<!-- End Contacts -->
+
+{%  endblock %}
+
+
+
+ 
